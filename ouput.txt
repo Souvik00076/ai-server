@@ -1,0 +1,80 @@
+<aithinking>Creating a recursive table in React is a good candidate for an artifact. It's a substantial, self-contained piece of code that the user might modify or reuse. This is a new request, so I'll create a new artifact with the identifier "recursive-table-component".</aithinking>
+
+<aiartifact identifier="recursive-table-component" type="application/vnd.ai.react" title="React Component: Recursive Table">
+import React from 'react';
+
+const RecursiveTable = ({ data }) => {
+  return (
+    <table className="min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
+        <tr>
+          {Object.keys(data[0]).map((key) => (
+            <th key={key} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              {key}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody className="bg-white divide-y divide-gray-200">
+        {data.map((item, index) => (
+          <TableRow key={index} item={item} />
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+const TableRow = ({ item }) => {
+  return (
+    <tr>
+      {Object.keys(item).map((key) => (
+        <td key={key} className="px-6 py-4 whitespace-nowrap">
+          {Array.isArray(item[key]) ? (
+            <RecursiveTable data={item[key]} />
+          ) : (
+            item[key]
+          )}
+        </td>
+      ))}
+    </tr>
+  );
+};
+
+const sampleData = [
+  {
+    id: 1,
+    name: 'Item 1',
+    details: [
+      {
+        id: 1.1,
+        name: 'Sub Item 1.1',
+        details: [
+          {
+            id: 1.1.1,
+            name: 'Sub Sub Item 1.1.1',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Item 2',
+    details: [],
+  },
+];
+
+const App = () => {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Recursive Table</h1>
+      <RecursiveTable data={sampleData} />
+    </div>
+  );
+};
+
+export default App;
+</aiartifact>
+
+This React component generates a recursive table that can handle nested data structures. The `RecursiveTable` component takes an array of objects as `data` and renders a table. If any field in the data is an array, it recursively renders another table within that cell. The `sampleData` array demonstrates how nested data can be structureddata: [DONE]
+
