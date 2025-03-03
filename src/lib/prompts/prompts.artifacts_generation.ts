@@ -190,6 +190,7 @@ export default Dashboard;
 
 </artifacts_info>
 
+Note : Do not use backticks.
 `;
 
 const formattedPrompt = addBraces(prompt);

@@ -1,10 +1,10 @@
 import { BaseLlm, INormal, IStream } from "./core.base";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { IterableReadableStream } from "@langchain/core/utils/stream";
-import { ChatGroq } from "@langchain/groq";
+import { ChatOpenAI } from "@langchain/openai";
 
 export class Groq extends BaseLlm implements IStream, INormal {
-  private instance: ChatGroq;
+  private instance: ChatOpenAI;
   constructor(
     modelName: string,
     apiKey: string,
@@ -14,14 +14,17 @@ export class Groq extends BaseLlm implements IStream, INormal {
   ) {
     super(modelName, apiKey, maxTokens, streaming, audio);
     console.log(streaming);
-    this.instance = new ChatGroq({
-      model: modelName,
-      apiKey,
+    this.instance = new ChatOpenAI({
+      modelName,
       streaming,
+      configuration: {
+        apiKey,
+        baseURL: "https://api.groq.com/openai/v1",
+      },
     });
   }
   public getInstance() {
-    return this.instance as ChatGroq;
+    return this.instance;
   }
   async generateStream(params: any): Promise<IterableReadableStream<any>> {
     if (this.runnables.length == 0) {

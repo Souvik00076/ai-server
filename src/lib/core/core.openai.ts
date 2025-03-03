@@ -2,7 +2,11 @@ import { ChatOpenAI } from "@langchain/openai";
 import { BaseLlm, INormal, IStream } from "./core.base";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { Ollama, OllamaCamelCaseOptions } from "@langchain/ollama";
-
+import {
+  BaseChatModelParams,
+  BaseChatModelCallOptions,
+  BaseChatModel,
+} from "@langchain/core/language_models/chat_models";
 export class OpenAI extends BaseLlm implements IStream, INormal {
   private instance: Ollama;
   constructor(

@@ -1,4 +1,3 @@
-import { Runnable } from "@langchain/core/runnables";
 import { ChatOpenAI } from "@langchain/openai";
 
 export abstract class BaseLlm {
